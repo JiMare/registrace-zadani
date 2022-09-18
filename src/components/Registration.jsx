@@ -8,7 +8,7 @@ import {
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-export const Registration = () => {
+export const Registration = ({ onRegistration }) => {
   const [user, setUser] = useState({
     username: "",
     email: "",
@@ -57,6 +57,7 @@ export const Registration = () => {
   const onSubmit = (event) => {
     event.preventDefault();
     console.log(user);
+    onRegistration();
   };
 
   return (
