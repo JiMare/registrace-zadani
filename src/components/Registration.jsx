@@ -19,7 +19,7 @@ export const Registration = ({ onRegistration }) => {
   const [isValidForm, setIsValidForm] = useState(false);
 
   useEffect(() => {
-    if (validateEmail(user.email) && user.password && onConfirmPassword()) {
+    if (validateEmail(user.email) && user.password && confirmPassword()) {
       setIsValidForm(true);
     } else {
       setIsValidForm(false);
@@ -56,8 +56,8 @@ export const Registration = ({ onRegistration }) => {
     }
   };
 
-  const onConfirmPassword = () => {
-    return user.password === user.passwordConfirm;
+  const confirmPassword = () => {
+    return user.passwordConfirm ? user.password === user.passwordConfirm : true;
   };
 
   const onSubmit = (event) => {
@@ -99,8 +99,8 @@ export const Registration = ({ onRegistration }) => {
             label="Confirm Password"
             value={user.passwordConfirm}
             type="password"
-            error={!onConfirmPassword()}
-            helperText={!onConfirmPassword() ? "Confirmation failed!" : ""}
+            error={!confirmPassword()}
+            helperText={!confirmPassword() ? "Confirmation failed!" : ""}
             onChange={(e) =>
               setUser({ ...user, passwordConfirm: e.target.value })
             }
