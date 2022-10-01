@@ -31,20 +31,26 @@ export const Registration = ({ onRegistration }) => {
   };
 
   const extractUsername = (email) => {
-    return email.slice(0, email.indexOf("@"));
+    return email.split("@")[0];
   };
 
   const onChangeEmail = (e) => {
     if (validateEmail(e.target.value)) {
-      setUser({
-        ...user,
-        username: extractUsername(e.target.value),
-        email: e.target.value,
-      });
+      if (user.username === "") {
+        setUser({
+          ...user,
+          username: extractUsername(e.target.value),
+          email: e.target.value,
+        });
+      } else {
+        setUser({
+          ...user,
+          email: e.target.value,
+        });
+      }
     } else {
       setUser({
         ...user,
-        username: "",
         email: e.target.value,
       });
     }
@@ -81,7 +87,7 @@ export const Registration = ({ onRegistration }) => {
           <TextField
             label="User Name"
             value={user.username}
-            inputProps={{ readOnly: true }}
+            onChange={(e) => setUser({ ...user, username: e.target.value })}
           />
           <TextField
             label="Password"
